@@ -71,8 +71,8 @@ namespace matrix.UserControls
         {
             textBox_StInfo.Visible = false;
             // Получаем числа матрицы из текстовых полей
-            double a11 = double.Parse(textBox1.Text);
-            double a12 = double.Parse(textBox2.Text);
+            double a11 = double.Parse(textBox12.Text);
+            double a12 = double.Parse(textBox10.Text);
             double a13 = double.Parse(textBox3.Text);
             double a21 = double.Parse(textBox4.Text);
             double a22 = double.Parse(textBox5.Text);
