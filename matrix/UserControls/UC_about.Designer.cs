@@ -85,7 +85,7 @@ namespace matrix.UserControls
             // 
             // textBox_Version_In
             // 
-            textBox_Version_In.Location = new Point(711, 307);
+            textBox_Version_In.Location = new Point(429, 56);
             textBox_Version_In.Name = "textBox_Version_In";
             textBox_Version_In.ReadOnly = true;
             textBox_Version_In.Size = new Size(86, 23);
@@ -97,7 +97,7 @@ namespace matrix.UserControls
             // 
             button_Update_Version.BackColor = Color.FromArgb(128, 255, 128);
             button_Update_Version.ForeColor = SystemColors.ControlText;
-            button_Update_Version.Location = new Point(309, 306);
+            button_Update_Version.Location = new Point(309, 56);
             button_Update_Version.Name = "button_Update_Version";
             button_Update_Version.Size = new Size(113, 23);
             button_Update_Version.TabIndex = 4;
