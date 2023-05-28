@@ -93,7 +93,6 @@ namespace matrix
             icon.Size = new Size(32, 33);
             icon.TabIndex = 0;
             icon.TabStop = false;
-            icon.Click += icon_Click;
             // 
             // label1
             // 

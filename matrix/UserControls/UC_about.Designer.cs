@@ -32,11 +32,12 @@ namespace matrix.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-
+            //version in file fix
             string ver_fil_path = Path.Combine(Application.StartupPath, "version.txt");
             string fil_con_l= File.ReadAllText(ver_fil_path);
             versiontxtfile = fil_con_l;
-
+            
+            
             label1 = new Label();
             button_Ru = new Button();
             button_En = new Button();

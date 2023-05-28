@@ -61,11 +61,6 @@ namespace matrix
 
         }
 
-        private void icon_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_exit_Click(object sender, EventArgs e)
         {
             Close();
@@ -82,11 +77,53 @@ namespace matrix
             addUserControl(uc);
         }
         #endregion
+        
+        //version fix on application startup
+        private string GetAppVersionFromDatabase()
+        {
+            string connectionString = "Server=194.169.163.175;Port=5432;Database=mvas;User Id=mvas;Password=qwe123;";
+            string appVersion = string.Empty;
+
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (NpgsqlCommand command = new NpgsqlCommand("SELECT app_version FROM version", connection))
+                {
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            appVersion = reader.GetString(0);
+                        }
+                    }
+                }
+            }
+
+            return appVersion;
+        }
+        // Функция записи в файл
+        private void WriteVersionToFile(string filePath, string appVersion)
+        {
+            File.WriteAllText(filePath, appVersion);
+        }
 
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            string versionFilePath = Path.Combine(Application.StartupPath, "version.txt");
 
+            // Проверка файла на значение в файле версии
+            if (File.Exists(versionFilePath) && new FileInfo(versionFilePath).Length < 6)
+            {
+                string appVersion = GetAppVersionFromDatabase();
+
+                if (!string.IsNullOrEmpty(appVersion))
+                {
+                    // Запись в файл версии с бд
+                    WriteVersionToFile(versionFilePath, appVersion);
+                }
+            }
         }
     }
 }

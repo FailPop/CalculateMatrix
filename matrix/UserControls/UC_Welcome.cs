@@ -17,6 +17,6 @@ namespace matrix.UserControls
             InitializeComponent();
         }
 
-        
+
     }
 }

@@ -6,7 +6,6 @@
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
@@ -47,13 +46,13 @@
             welcome_label.Name = "welcome_label";
             welcome_label.Size = new Size(606, 21);
             welcome_label.TabIndex = 0;
-            welcome_label.Text = "matrix - универсальное приложение для решения математических матриц";
+            welcome_label.Text = "Matrix - универсальное приложение для решения математических матриц";
             // 
             // welcome_infolabel1
             // 
             welcome_infolabel1.AutoSize = true;
             welcome_infolabel1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            welcome_infolabel1.Location = new Point(12, 15);
+            welcome_infolabel1.Location = new Point(12, 26);
             welcome_infolabel1.Name = "welcome_infolabel1";
             welcome_infolabel1.Size = new Size(716, 32);
             welcome_infolabel1.TabIndex = 1;
@@ -63,7 +62,7 @@
             // 
             welcome_infolabel2.AutoSize = true;
             welcome_infolabel2.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
-            welcome_infolabel2.Location = new Point(9, 47);
+            welcome_infolabel2.Location = new Point(9, 58);
             welcome_infolabel2.Name = "welcome_infolabel2";
             welcome_infolabel2.Size = new Size(482, 47);
             welcome_infolabel2.TabIndex = 2;
@@ -73,7 +72,7 @@
             // 
             welcome_infolabel3.AutoSize = true;
             welcome_infolabel3.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
-            welcome_infolabel3.Location = new Point(10, 94);
+            welcome_infolabel3.Location = new Point(9, 105);
             welcome_infolabel3.Name = "welcome_infolabel3";
             welcome_infolabel3.Size = new Size(168, 47);
             welcome_infolabel3.TabIndex = 3;
@@ -83,7 +82,7 @@
             // 
             welcome_infolabel4.AutoSize = true;
             welcome_infolabel4.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
-            welcome_infolabel4.Location = new Point(12, 141);
+            welcome_infolabel4.Location = new Point(12, 152);
             welcome_infolabel4.Name = "welcome_infolabel4";
             welcome_infolabel4.Size = new Size(358, 47);
             welcome_infolabel4.TabIndex = 4;
@@ -93,7 +92,7 @@
             // 
             welcome_infolabel5.AutoSize = true;
             welcome_infolabel5.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
-            welcome_infolabel5.Location = new Point(12, 188);
+            welcome_infolabel5.Location = new Point(12, 199);
             welcome_infolabel5.Name = "welcome_infolabel5";
             welcome_infolabel5.Size = new Size(486, 47);
             welcome_infolabel5.TabIndex = 5;
