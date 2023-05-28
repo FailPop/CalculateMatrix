@@ -52,6 +52,7 @@
             labelotvet_Opred.MinimumSize = new Size(440, 330);
             labelotvet_Opred.Multiline = true;
             labelotvet_Opred.Name = "labelotvet_Opred";
+            labelotvet_Opred.ReadOnly = true;
             labelotvet_Opred.ScrollBars = ScrollBars.Both;
             labelotvet_Opred.Size = new Size(440, 350);
             labelotvet_Opred.TabIndex = 41;

@@ -69,6 +69,7 @@
             labelotvet_Stepen.MinimumSize = new Size(440, 330);
             labelotvet_Stepen.Multiline = true;
             labelotvet_Stepen.Name = "labelotvet_Stepen";
+            labelotvet_Stepen.ReadOnly = true;
             labelotvet_Stepen.ScrollBars = ScrollBars.Both;
             labelotvet_Stepen.Size = new Size(440, 350);
             labelotvet_Stepen.TabIndex = 53;

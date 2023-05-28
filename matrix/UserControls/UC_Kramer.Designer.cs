@@ -256,6 +256,7 @@
             labelotvet_Kramer.MinimumSize = new Size(440, 330);
             labelotvet_Kramer.Multiline = true;
             labelotvet_Kramer.Name = "labelotvet_Kramer";
+            labelotvet_Kramer.ReadOnly = true;
             labelotvet_Kramer.ScrollBars = ScrollBars.Both;
             labelotvet_Kramer.Size = new Size(440, 350);
             labelotvet_Kramer.TabIndex = 26;

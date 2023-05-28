@@ -41,6 +41,7 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Gauss));
             guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            button_SaveT_Gauss = new Button();
             textBox_GsInfo = new TextBox();
             labelotvet_Gauss = new TextBox();
             buttonSolve = new Button();
@@ -57,7 +58,6 @@
             textBox4 = new TextBox();
             textBox5 = new TextBox();
             label1 = new Label();
-            button_SaveT_Gauss = new Button();
             textBox13 = new TextBox();
             textBox18 = new TextBox();
             textBox19 = new TextBox();
@@ -214,6 +214,16 @@
             guna2CustomGradientPanel1.Size = new Size(800, 350);
             guna2CustomGradientPanel1.TabIndex = 20;
             // 
+            // button_SaveT_Gauss
+            // 
+            button_SaveT_Gauss.Location = new Point(221, 324);
+            button_SaveT_Gauss.Name = "button_SaveT_Gauss";
+            button_SaveT_Gauss.Size = new Size(133, 23);
+            button_SaveT_Gauss.TabIndex = 21;
+            button_SaveT_Gauss.Text = "Сохранить ответ";
+            button_SaveT_Gauss.UseVisualStyleBackColor = true;
+            button_SaveT_Gauss.Click += button_SaveT_Gauss_Click;
+            // 
             // textBox_GsInfo
             // 
             textBox_GsInfo.Location = new Point(371, 12);
@@ -232,6 +242,7 @@
             labelotvet_Gauss.MinimumSize = new Size(440, 330);
             labelotvet_Gauss.Multiline = true;
             labelotvet_Gauss.Name = "labelotvet_Gauss";
+            labelotvet_Gauss.ReadOnly = true;
             labelotvet_Gauss.ScrollBars = ScrollBars.Both;
             labelotvet_Gauss.Size = new Size(440, 350);
             labelotvet_Gauss.TabIndex = 26;
@@ -353,16 +364,6 @@
             label1.Name = "label1";
             label1.Size = new Size(350, 250);
             label1.TabIndex = 23;
-            // 
-            // button_SaveT_Gauss
-            // 
-            button_SaveT_Gauss.Location = new Point(221, 324);
-            button_SaveT_Gauss.Name = "button_SaveT_Gauss";
-            button_SaveT_Gauss.Size = new Size(133, 23);
-            button_SaveT_Gauss.TabIndex = 21;
-            button_SaveT_Gauss.Text = "Сохранить ответ";
-            button_SaveT_Gauss.UseVisualStyleBackColor = true;
-            button_SaveT_Gauss.Click += button_SaveT_Gauss_Click;
             // 
             // UC_Gauss
             // 
