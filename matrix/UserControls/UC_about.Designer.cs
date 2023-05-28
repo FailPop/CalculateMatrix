@@ -4,10 +4,6 @@ namespace matrix.UserControls
 {
     partial class UC_about
     {
-        string versiontextbox = Assembly.GetExecutingAssembly().GetName().Version.ToString(2);
-
-        public string versionshow;
-
 
 
         /// <summary> 
@@ -36,6 +32,11 @@ namespace matrix.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+
+            string ver_fil_path = Path.Combine(Application.StartupPath, "version.txt");
+            string fil_con_l= File.ReadAllText(ver_fil_path);
+            versiontxtfile = fil_con_l;
+
             label1 = new Label();
             button_Ru = new Button();
             button_En = new Button();
@@ -82,6 +83,7 @@ namespace matrix.UserControls
             textBox_Version_In.ReadOnly = true;
             textBox_Version_In.Size = new Size(86, 23);
             textBox_Version_In.TabIndex = 3;
+            textBox_Version_In.Text = versiontxtfile;
             textBox_Version_In.TextChanged += textBox_Version_In_TextChanged;
             // 
             // button_Update_Version
