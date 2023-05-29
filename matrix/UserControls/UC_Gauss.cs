@@ -86,6 +86,7 @@ namespace matrix.UserControls
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Очистка поля ответа 
             labelotvet_Gauss.Text = null;
 
             textBox_GsInfo.Visible = false;
