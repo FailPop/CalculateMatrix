@@ -73,6 +73,22 @@ namespace matrix
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            string versionFilePath = Path.Combine(Application.StartupPath, "version.txt");
+
+            // Проверка файла на значение в файле версии
+            if (File.Exists(versionFilePath) && new FileInfo(versionFilePath).Length < 6 || !File.ReadAllText(versionFilePath).Contains("Version"))
+            {
+                string appVersion = GetAppVersionFromDatabase();
+
+                if (!string.IsNullOrEmpty(appVersion))
+                {
+                    // Запись в файл версии с бд
+                    WriteVersionToFile(versionFilePath, appVersion);
+                }
+            }
+
+
             UC_about uc = new UC_about();
             addUserControl(uc);
         }
@@ -111,19 +127,7 @@ namespace matrix
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string versionFilePath = Path.Combine(Application.StartupPath, "version.txt");
-
-            // Проверка файла на значение в файле версии
-            if (File.Exists(versionFilePath) && new FileInfo(versionFilePath).Length < 6)
-            {
-                string appVersion = GetAppVersionFromDatabase();
-
-                if (!string.IsNullOrEmpty(appVersion))
-                {
-                    // Запись в файл версии с бд
-                    WriteVersionToFile(versionFilePath, appVersion);
-                }
-            }
+            
         }
     }
 }

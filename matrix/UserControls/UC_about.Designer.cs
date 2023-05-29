@@ -32,12 +32,6 @@ namespace matrix.UserControls
         /// </summary>
         private void InitializeComponent()
         {
-            //version in file fix
-            string ver_fil_path = Path.Combine(Application.StartupPath, "version.txt");
-            string fil_con_l= File.ReadAllText(ver_fil_path);
-            versiontxtfile = fil_con_l;
-            
-            
             label1 = new Label();
             button_Ru = new Button();
             button_En = new Button();
@@ -55,7 +49,7 @@ namespace matrix.UserControls
             label1.Name = "label1";
             label1.Size = new Size(300, 330);
             label1.TabIndex = 0;
-            label1.Text = "Разработчики:\r\nБондаренко Екатерина\r\nКовалев Сергей\r\nМешков Василий\r\nМешков Григорий\r\nЕремченко Кирилл\r\n\r\nBeta тестер:\r\nvk.com/torwerka";
+            label1.Text = "Разработчики:\r\nБондаренко Екатерина\r\nКовалев Сергей\r\nМешков Василий\r\nМешков Григорий\r\nЕремченко Кирилл\r\n\r\nБетатестер:\r\nvk.com/torwerka";
             // 
             // button_Ru
             // 
@@ -84,7 +78,6 @@ namespace matrix.UserControls
             textBox_Version_In.ReadOnly = true;
             textBox_Version_In.Size = new Size(86, 23);
             textBox_Version_In.TabIndex = 3;
-            textBox_Version_In.Text = versiontxtfile;
             textBox_Version_In.TextChanged += textBox_Version_In_TextChanged;
             // 
             // button_Update_Version
