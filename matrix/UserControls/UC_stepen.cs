@@ -69,6 +69,9 @@ namespace matrix.UserControls
         #endregion
         private void buttonSolve_Click(object sender, EventArgs e)
         {
+            // Очистка поля ответа
+            labelotvet_Stepen.Text = null;
+
             textBox_StInfo.Visible = false;
             // Получаем числа матрицы из текстовых полей
             double a11 = double.Parse(textBox12.Text);

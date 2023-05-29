@@ -79,6 +79,9 @@ namespace matrix.UserControls
         #endregion
         private void buttonSolve_Click(object sender, EventArgs e)
         {
+            // Очистка поля ответа
+            labelotvet_Kramer.Text = null;
+
             textBox_KrInfo.Visible = false;
             double a11, a12, a13, a21, a22, a23, a31, a32, a33, b1, b2, b3;
             double detA, detA1, detA2, detA3, x1, x2, x3;

@@ -69,6 +69,9 @@ namespace matrix.UserControls
         #endregion
         private void buttonSolve_Click(object sender, EventArgs e)
         {
+            // Очистка поля ответа
+            labelotvet_Opred.Text = null;
+
             textBox_OpInfo.Visible = false;
             double[,] matrix = new double[3, 3];
             try

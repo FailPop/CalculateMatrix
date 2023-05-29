@@ -86,6 +86,8 @@ namespace matrix.UserControls
 
         private void button1_Click(object sender, EventArgs e)
         {
+            labelotvet_Gauss.Text = null;
+
             textBox_GsInfo.Visible = false;
             double[,] matrix = new double[3, 4];
             // Считывание данных из полей ввода и проверка на валидность
