@@ -32,6 +32,11 @@ namespace matrix.UserControls
         /// </summary>
         private void InitializeComponent()
         {
+            // Версия приложения
+            string versionFilePath = Path.Combine(Application.StartupPath, "version.txt");
+            string fileContent = File.ReadAllText(versionFilePath);
+            versiontxtfile = fileContent;
+
             label1 = new Label();
             button_Ru = new Button();
             button_En = new Button();
@@ -78,6 +83,7 @@ namespace matrix.UserControls
             textBox_Version_In.ReadOnly = true;
             textBox_Version_In.Size = new Size(86, 23);
             textBox_Version_In.TabIndex = 3;
+            textBox_Version_In.Text = versiontxtfile;
             textBox_Version_In.TextChanged += textBox_Version_In_TextChanged;
             // 
             // button_Update_Version

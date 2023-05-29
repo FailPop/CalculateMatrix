@@ -12,6 +12,9 @@ namespace matrix.UserControls
 {
     public partial class UC_Kramer : UserControl
     {
+
+        private const double MaxValue = 999;
+
         public UC_Kramer()
         {
             InitializeComponent();
@@ -77,40 +80,49 @@ namespace matrix.UserControls
 
         }
         #endregion
+        private void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (!double.TryParse(textBox.Text, out double value) || value > 999)
+            {
+                MessageBox.Show("Ошибка ввода! Введите корректные числа или дополните все числа (не более 999).");
+                textBox_KrInfo.Visible = true;
+            }
+            else
+            {
+                textBox.Text = value.ToString("F2");
+                textBox_KrInfo.Visible = false;
+            }
+        }
+
         private void buttonSolve_Click(object sender, EventArgs e)
         {
-            // Очистка поля ответа
             labelotvet_Kramer.Text = null;
-
             textBox_KrInfo.Visible = false;
+
             double a11, a12, a13, a21, a22, a23, a31, a32, a33, b1, b2, b3;
             double detA, detA1, detA2, detA3, x1, x2, x3;
 
-            try
+            if (!double.TryParse(textBox1.Text, out a11) || a11 > 999 ||
+                !double.TryParse(textBox2.Text, out a12) || a12 > 999 ||
+                !double.TryParse(textBox3.Text, out a13) || a13 > 999 ||
+                !double.TryParse(textBox4.Text, out a21) || a21 > 999 ||
+                !double.TryParse(textBox5.Text, out a22) || a22 > 999 ||
+                !double.TryParse(textBox6.Text, out a23) || a23 > 999 ||
+                !double.TryParse(textBox7.Text, out a31) || a31 > 999 ||
+                !double.TryParse(textBox8.Text, out a32) || a32 > 999 ||
+                !double.TryParse(textBox9.Text, out a33) || a33 > 999 ||
+                !double.TryParse(textBox10.Text, out b1) || b1 > 999 ||
+                !double.TryParse(textBox11.Text, out b2) || b2 > 999 ||
+                !double.TryParse(textBox12.Text, out b3) || b3 > 999)
             {
-                a11 = double.Parse(textBox1.Text);
-                a12 = double.Parse(textBox2.Text);
-                a13 = double.Parse(textBox3.Text);
-                a21 = double.Parse(textBox4.Text);
-                a22 = double.Parse(textBox5.Text);
-                a23 = double.Parse(textBox6.Text);
-                a31 = double.Parse(textBox7.Text);
-                a32 = double.Parse(textBox8.Text);
-                a33 = double.Parse(textBox9.Text);
-                b1 = double.Parse(textBox10.Text);
-                b2 = double.Parse(textBox11.Text);
-                b3 = double.Parse(textBox12.Text);
-            }
-            catch (FormatException)
-            {
-                MessageBox.Show("Ошибка ввода! Введите корректные числа или допишите все числа.");
+                MessageBox.Show("Одно или несколько чисел превышает максимальное значение!");
                 textBox_KrInfo.Visible = true;
                 return;
             }
 
-            // Вычисление определителя матрицы
             detA = a11 * a22 * a33 + a21 * a32 * a13 + a31 * a12 * a23
-                 - a13 * a22 * a31 - a23 * a32 * a11 - a33 * a12 * a21;
+                   - a13 * a22 * a31 - a23 * a32 * a11 - a33 * a12 * a21;
 
             if (detA == 0)
             {
@@ -118,50 +130,40 @@ namespace matrix.UserControls
                 return;
             }
 
-            // Вычисление определителей матрицы, где i-ый столбец заменен на столбец свободных членов
             detA1 = b1 * a22 * a33 + b2 * a32 * a13 + b3 * a12 * a23
-                  - a13 * a22 * b3 - a23 * b2 * a11 - a33 * a12 * b1;
+                    - a13 * a22 * b3 - a23 * b2 * a11 - a33 * a12 * b1;
 
             detA2 = a11 * b2 * a33 + a21 * b3 * a13 + a31 * b1 * a23
-                  - a13 * b2 * a31 - b3 * a32 * a11 - a33 * b1 * a21;
+                    - a13 * b2 * a31 - b3 * a32 * a11 - a33 * b1 * a21;
 
             detA3 = a11 * a22 * b3 + a21 * b2 * a13 + b1 * a12 * a23
-                  - a13 * a22 * b1 - b2 * a32 * a11 - a33 * a12 * b3;
+                    - a13 * a22 * b1 - b2 * a32 * a11 - a33 * a12 * b3;
 
-            // Вывод определителей матрицы
-            labelotvet_Kramer.AppendText("Определители матрицы, где i-ый столбец заменен на столбец свободных членов:\r\n");
-            labelotvet_Kramer.AppendText($"det(1) = {detA1:F2}\r\n");
-            labelotvet_Kramer.AppendText($"det(2) = {detA2:F2}\r\n");
-            labelotvet_Kramer.AppendText($"det(3) = {detA3:F2}\r\n");
+            string determinants = $"Определители матрицы, где i-ый столбец заменен на столбец свободных членов:\r\n" +
+                                  $"det(1) = {detA1:F2}\r\n" +
+                                  $"det(2) = {detA2:F2}\r\n" +
+                                  $"det(3) = {detA3:F2}\r\n";
 
-            // Вычисление решений системы
+            labelotvet_Kramer.AppendText(determinants);
+
             x1 = detA1 / detA;
             x2 = detA2 / detA;
             x3 = detA3 / detA;
 
-            // Вывод решения
             labelotvet_Kramer.AppendText("Решение:\r\n");
             labelotvet_Kramer.AppendText($"x1 = {x1:F2}\r\n");
             labelotvet_Kramer.AppendText($"x2 = {x2:F2}\r\n");
             labelotvet_Kramer.AppendText($"x3 = {x3:F2}\r\n");
         }
 
-        private void labelotvet_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_SaveT_Kramer_Click(object sender, EventArgs e)
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // Получение пути к рабочему столу
-            string otvetFilePath = Path.Combine(desktopPath, "Otvet_Kramer.txt"); // Путь к файлу "Otvet_Kramer.txt" на рабочем столе
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string otvetFilePath = Path.Combine(desktopPath, "Otvet_Kramer.txt");
 
-            // Проверка, содержит ли labelotvet_Kramer текст
             if (!string.IsNullOrEmpty(labelotvet_Kramer.Text))
             {
-                // Запись текста из labelotvet_Kramer в файл "Otvet_Kramer.txt" на рабочем столе
                 File.WriteAllText(otvetFilePath, labelotvet_Kramer.Text);
-
                 MessageBox.Show("Текст успешно сохранен в файле Otvet_Kramer.txt на рабочем столе");
             }
             else

@@ -14,6 +14,8 @@ namespace matrix.UserControls
         private const string connectionString = "Server=194.169.163.175;Port=5432;Database=mvas;User Id=mvas;Password=qwe123;";
         public string versiontxtfile;
 
+
+
         public UC_about()
         {
             InitializeComponent();
@@ -23,7 +25,7 @@ namespace matrix.UserControls
 
         private void button_Ru_Click(object sender, EventArgs e)
         {
-            string message = "Если вы не заметили, вы уже используете русский язык в приложении. Будьте внимательнее...";
+            string message = "Вы уже используете русский язык в приложении. Будьте внимательнее...";
             MessageBox.Show(message, "Сообщение");
         }
 

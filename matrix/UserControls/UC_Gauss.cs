@@ -13,6 +13,9 @@ namespace matrix.UserControls
 {
     public partial class UC_Gauss : UserControl
     {
+
+        private const double MaxValue = 999;
+
         public UC_Gauss()
         {
             InitializeComponent();
@@ -86,39 +89,47 @@ namespace matrix.UserControls
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Очистка поля ответа 
+            // Очистка поля ответа
             labelotvet_Gauss.Text = null;
 
             textBox_GsInfo.Visible = false;
             double[,] matrix = new double[3, 4];
             // Считывание данных из полей ввода и проверка на валидность
-            if (!double.TryParse(textBox1.Text, out matrix[0, 0]) ||
-                !double.TryParse(textBox2.Text, out matrix[0, 1]) ||
-                !double.TryParse(textBox3.Text, out matrix[0, 2]) ||
-                !double.TryParse(textBox4.Text, out matrix[0, 3]) ||
-                !double.TryParse(textBox5.Text, out matrix[1, 0]) ||
-                !double.TryParse(textBox6.Text, out matrix[1, 1]) ||
-                !double.TryParse(textBox7.Text, out matrix[1, 2]) ||
-                !double.TryParse(textBox8.Text, out matrix[1, 3]) ||
-                !double.TryParse(textBox9.Text, out matrix[2, 0]) ||
-                !double.TryParse(textBox10.Text, out matrix[2, 1]) ||
-                !double.TryParse(textBox11.Text, out matrix[2, 2]) ||
-                !double.TryParse(textBox12.Text, out matrix[2, 3]))
+            if (!TryParseDouble(textBox1.Text, out matrix[0, 0]) ||
+                !TryParseDouble(textBox2.Text, out matrix[0, 1]) ||
+                !TryParseDouble(textBox3.Text, out matrix[0, 2]) ||
+                !TryParseDouble(textBox4.Text, out matrix[0, 3]) ||
+                !TryParseDouble(textBox5.Text, out matrix[1, 0]) ||
+                !TryParseDouble(textBox6.Text, out matrix[1, 1]) ||
+                !TryParseDouble(textBox7.Text, out matrix[1, 2]) ||
+                !TryParseDouble(textBox8.Text, out matrix[1, 3]) ||
+                !TryParseDouble(textBox9.Text, out matrix[2, 0]) ||
+                !TryParseDouble(textBox10.Text, out matrix[2, 1]) ||
+                !TryParseDouble(textBox11.Text, out matrix[2, 2]) ||
+                !TryParseDouble(textBox12.Text, out matrix[2, 3]))
             {
                 MessageBox.Show("Ошибка ввода! Введите корректные числа.");
                 textBox_GsInfo.Visible = true;
                 return;
             }
 
+            // Проверка на возможность правильного решения
+            if (!IsSolvable(matrix))
+            {
+                MessageBox.Show("Матрица не имеет решения или имеет бесконечное количество решений!");
+                return;
+            }
+
+            // Проверка на максимальное значение переменных
+            if (!IsValidMatrix(matrix))
+            {
+                MessageBox.Show("Одно или несколько чисел превышает максимальное значение!");
+                return;
+            }
+
             // Вывод исходной матрицы
             labelotvet_Gauss.Text = "Исходная матрица:\r\n";
             PrintMatrix(matrix);
-
-            if (matrix[0, 0] == 0 || matrix[1, 1] == 0 || matrix[2, 2] == 0)
-            {
-                MessageBox.Show("Матрица не имеет решения!");
-                return;
-            }
 
             // Прямой ход метода Гаусса
             for (int k = 0; k < 3; k++)
@@ -139,109 +150,83 @@ namespace matrix.UserControls
             // Обратный ход метода Гаусса
             for (int k = 2; k >= 0; k--)
             {
-                for (int i = k - 1; i >= 0; i--)
+                double value = matrix[k, 3];
+                for (int j = k + 1; j < 3; j++)
                 {
-                    double coeff = matrix[i, k] / matrix[k, k];
-                    labelotvet_Gauss.AppendText($"Вычитаем {coeff:F2} * строку {k + 1} из строки {i + 1}\r\n");
-                    for (int j = k; j < 4; j++)
-                    {
-                        matrix[i, j] = matrix[i, j] - coeff * matrix[k, j];
-                    }
+                    value = value - matrix[k, j] * matrix[j, 3];
                 }
-                labelotvet_Gauss.AppendText("====================\r\n");
-                PrintMatrix(matrix);
+                matrix[k, 3] = value / matrix[k, k];
             }
-
-            // Нормализация решения
-            for (int i = 0; i < 3; i++)
-            {
-                double coeff = 1 / matrix[i, i];
-                labelotvet_Gauss.AppendText($"Делим строку {i + 1} на {matrix[i, i]}\r\n");
-                for (int j = 0; j < 4; j++)
-                {
-                    matrix[i, j] = matrix[i, j] * coeff;
-                }
-            }
-            // Проверка, что матрица уже решена
-            if (matrix[0, 0] != 1 || matrix[1, 1] != 1 || matrix[2, 2] != 1)
-            {
-                MessageBox.Show("Матрица не решена!");
-                return;
-            }
-
-            labelotvet_Gauss.AppendText("====================\r\n");
-            PrintMatrix(matrix);
 
             // Вывод решения
             labelotvet_Gauss.AppendText("Решение:\r\n");
-            for (int i = 0; i < 3; i++)
-            {
-                labelotvet_Gauss.AppendText($"x{i + 1} = {matrix[i, 3]:F2}\r\n");
-            }
+            labelotvet_Gauss.AppendText($"x = {matrix[0, 3]:F2}\r\n");
+            labelotvet_Gauss.AppendText($"y = {matrix[1, 3]:F2}\r\n");
+            labelotvet_Gauss.AppendText($"z = {matrix[2, 3]:F2}");
         }
 
-        // Вывод измененной матрицы
+        private bool TryParseDouble(string text, out double value)
+        {
+            if (double.TryParse(text, out value))
+            {
+                // Проверка на максимальное значение переменной
+                if (value > MaxValue)
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsSolvable(double[,] matrix)
+        {
+            double detA = matrix[0, 0] * matrix[1, 1] * matrix[2, 2] +
+                          matrix[1, 0] * matrix[2, 1] * matrix[0, 2] +
+                          matrix[2, 0] * matrix[0, 1] * matrix[1, 2] -
+                          matrix[0, 2] * matrix[1, 1] * matrix[2, 0] -
+                          matrix[1, 2] * matrix[2, 1] * matrix[0, 0] -
+                          matrix[2, 2] * matrix[0, 1] * matrix[1, 0];
+            return Math.Abs(detA) > double.Epsilon;
+        }
+
+        private bool IsValidMatrix(double[,] matrix)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (matrix[i, j] > MaxValue)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         private void PrintMatrix(double[,] matrix)
         {
             for (int i = 0; i < 3; i++)
             {
-                string row = "";
                 for (int j = 0; j < 4; j++)
                 {
-                    // Если число дробное
-                    if (matrix[i, j] % 1 != 0)
-                    {
-                        // Находим НОД числителя и знаменателя
-                        double numerator = matrix[i, j] * 1000000;
-                        double denominator = 1000000;
-                        while (denominator > 1)
-                        {
-                            double remainder = numerator % denominator;
-                            numerator = denominator;
-                            denominator = remainder;
-                        }
-                        int gcd = (int)numerator;
-
-                        // Делим числитель и знаменатель на НОД
-                        int newNumerator = (int)(matrix[i, j] * 1000000 / gcd);
-                        int newDenominator = 1000000 / gcd;
-
-                        // Форматируем дробь
-                        row += $"{newNumerator}/{newDenominator}\t";
-                    }
-                    // Если число целое
-                    else
-                    {
-                        row += $"{matrix[i, j]:F0}\t";
-                    }
+                    labelotvet_Gauss.AppendText(matrix[i, j].ToString("F3") + "\t");
                 }
-                labelotvet_Gauss.AppendText(row + "\r\n");
+                labelotvet_Gauss.AppendText("\r\n");
             }
-            labelotvet_Gauss.AppendText("\r\n");
-        }
-
-
-        private void labenotvet_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button_SaveT_Gauss_Click(object sender, EventArgs e)
         {
-            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop); // Получение пути к рабочему столу
-            string otvetFilePath = Path.Combine(desktopPath, "Otvet_Gauss.txt"); // Путь к файлу "Otvet_Gauss.txt" на рабочем столе
-
-            // Проверка, содержит ли labelotvet_Gauss текст
-            if (!string.IsNullOrEmpty(labelotvet_Gauss.Text))
+            try
             {
-                // Запись текста из labelotvet_Gauss в файл "Otvet_Gauss.txt" на рабочем столе
-                File.WriteAllText(otvetFilePath, labelotvet_Gauss.Text);
-
-                MessageBox.Show("Текст успешно сохранен в файле Otvet_Gauss.txt на рабочем столе");
+                File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Otvet_Gauss.txt", labelotvet_Gauss.Text);
+                MessageBox.Show("Файл сохранен на рабочем столе!");
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Нет текста для сохранения");
+                MessageBox.Show("Ошибка при сохранении файла: " + ex.Message);
             }
         }
 

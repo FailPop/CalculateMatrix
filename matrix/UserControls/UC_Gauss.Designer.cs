@@ -246,7 +246,6 @@
             labelotvet_Gauss.ScrollBars = ScrollBars.Both;
             labelotvet_Gauss.Size = new Size(440, 350);
             labelotvet_Gauss.TabIndex = 26;
-            labelotvet_Gauss.TextChanged += labenotvet_TextChanged;
             // 
             // buttonSolve
             // 

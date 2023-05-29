@@ -260,7 +260,6 @@
             labelotvet_Kramer.ScrollBars = ScrollBars.Both;
             labelotvet_Kramer.Size = new Size(440, 350);
             labelotvet_Kramer.TabIndex = 26;
-            labelotvet_Kramer.TextChanged += labelotvet_TextChanged;
             // 
             // buttonSolve
             // 
